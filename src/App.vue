@@ -1,9 +1,8 @@
 <template>
   <div id="app" class="app-container">
-    <header>
+    <header class="header">
       <div class="logo-container">
         <img src="../src/assets/logo.png" alt="Covidômetro" class="logo" />
-        <h1>Covidômetro</h1>
       </div>
     </header>
 
@@ -24,7 +23,12 @@
       </div>
     </section>
 
-    <SearchBar @search="handleSearch" />
+    <section class="filter-section">
+      <div class="card-filter">
+        <h2>Filtrar dados sobre um país</h2>
+        <SearchBar @search="handleSearch" />
+      </div>
+    </section>
 
     <main class="countries-list">
       <CountryStats
@@ -103,10 +107,11 @@
   }
 
   /* Estilo do header */
-  header {
+  .header {
     display: flex;
-    justify-content: center;
-    padding: 20px 0;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
     background-color: #fff;
   }
 
@@ -116,7 +121,6 @@
   }
 
   .logo {
-    width: 50px;
     margin-right: 10px;
   }
 
@@ -128,13 +132,13 @@
   /* Estilo para a seção de introdução */
   .intro-section {
     display: flex;
-    justify-content: space-between;
-    padding: 40px;
-    background-color: #fdf8f6;
+    justify-content: center;
+    align-items: center;
   }
 
   .intro-text {
-    width: 50%;
+    margin: 50px;
+    width: 40%;
   }
 
   .intro-text h2 {
@@ -153,38 +157,58 @@
     height: auto;
   }
 
-  /* Seção do filtro de países */
-  .filter-section {
-    display: flex;
-    justify-content: center;
-    padding: 20px;
+  .card-filter {
+    flex-direction: column;
+    text-align: center;
   }
 
-  .search-bar {
-    position: relative;
-    width: 50%;
-    max-width: 500px;
+  /* Ajuste responsivo para telas menores */
+  @media (max-width: 768px) {
+    .intro-section {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .intro-text,
+    .intro-image {
+      width: 100%;
+    }
+
+    .intro-image img {
+      width: 200px;
+    }
   }
 
   input {
     width: 100%;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
+    padding: 20px;
+    padding-left: 45px;
+    border: 2px solid #e3e3e3;
+    border-radius: 8px;
+    font-size: 18px;
+    background-color: #fdf8f6;
+    color: #555;
+    box-sizing: border-box;
+    outline: none;
   }
 
-  .icon-search {
-    position: absolute;
-    right: 15px;
-    top: 15px;
-    font-size: 20px;
-    color: #ff6b6b;
+  input::placeholder {
+    color: #c0c0c0;
+  }
+
+  .filter-section h2 {
+    text-align: center;
+    color: #666;
+    font-size: 24px;
+    margin-bottom: 10px;
   }
 
   /* Estilo da listagem de países */
   .countries-list {
     padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .countries-list .country-stats {

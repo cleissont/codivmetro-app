@@ -1,6 +1,6 @@
 <template>
   <div class="country-stats">
-    <h3>{{ country }}</h3>
+    <h3 class="text">{{ country }}</h3>
     <div class="stats">
       <div>
         <p>Total de casos</p>
@@ -30,7 +30,6 @@
 </script>
 
 <style scoped>
-  /* Estilo dos cards de país */
   .country-stats {
     width: 80%;
     max-width: 600px;
@@ -44,6 +43,7 @@
   .country-stats h3 {
     font-size: 24px;
     color: #333;
+    text-align: center;
     margin-bottom: 10px;
   }
 

@@ -3,7 +3,7 @@
     <div class="search-bar">
       <input
         type="text"
-        placeholder="Digite o nome de um país"
+        placeholder="Digite o nome do país"
         v-model="searchQuery"
         @input="onInput"
       />
@@ -28,7 +28,6 @@
 </script>
 
 <style scoped>
-  /* Estilo da barra de busca */
   .filter-section {
     display: flex;
     justify-content: center;
@@ -39,15 +38,13 @@
     position: relative;
     width: 50%;
     max-width: 500px;
-    background-color: #fff7f3;
     padding: 10px;
     border-radius: 8px;
-    border: 1px solid #f76565;
   }
 
   input {
     width: 100%;
-    padding: 15px;
+    padding: 15px 15px 15px 40px;
     border: none;
     border-bottom: 2px solid #f76565;
     outline: none;
@@ -57,8 +54,9 @@
 
   .icon-search {
     position: absolute;
-    right: 15px;
-    top: 15px;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
     font-size: 20px;
     color: #f76565;
   }
