@@ -3,6 +3,7 @@
     <header class="header">
       <div class="logo-container">
         <img src="../src/assets/logo.png" alt="Covidômetro" class="logo" />
+        <h1>Covidômetro</h1>
       </div>
     </header>
 
@@ -24,26 +25,26 @@
     </section>
 
     <section class="filter-section">
-      <div class="card-filter">
-        <h2>Filtrar dados sobre um país</h2>
-        <SearchBar @search="handleSearch" />
-      </div>
+      <SearchBar @search="handleSearch" />
     </section>
 
     <main class="countries-list">
+      <p v-if="!filteredCountries.length">Carregando dados...</p>
       <CountryStats
+        v-else
         v-for="country in filteredCountries"
-        :key="country.name"
-        :country="country.name"
-        :totalCases="country.totalCases"
+        :key="country.region.name"
+        :country="country.region.name"
+        :totalCases="country.confirmed"
         :deaths="country.deaths"
-        :fatalityRate="country.fatalityRate"
+        :fatalityRate="(country.deaths / country.confirmed) * 100"
       />
     </main>
   </div>
 </template>
 
 <script>
+  import axios from "axios"
   import SearchBar from "./components/SearchBar.vue"
   import CountryStats from "./components/CountryStats.vue"
 
@@ -55,58 +56,45 @@
     data() {
       return {
         searchTerm: "",
-        countries: [
-          {
-            name: "África do Sul",
-            totalCases: 32687680,
-            deaths: 672790,
-            fatalityRate: 2.05,
-          },
-          {
-            name: "Austrália",
-            totalCases: 32687680,
-            deaths: 672790,
-            fatalityRate: 2.05,
-          },
-          {
-            name: "Brasil",
-            totalCases: 32687680,
-            deaths: 672790,
-            fatalityRate: 2.05,
-          },
-          {
-            name: "Estados Unidos",
-            totalCases: 32687680,
-            deaths: 672790,
-            fatalityRate: 2.05,
-          },
-          // Outros países...
-        ],
+        countries: [],
       }
     },
     computed: {
       filteredCountries() {
-        return this.countries.filter((country) =>
-          country.name.toLowerCase().includes(this.searchTerm.toLowerCase())
-        )
+        return this.countries
+          .filter((country) => !country.region.province)
+          .filter((country) =>
+            country.region.name
+              .toLowerCase()
+              .includes(this.searchTerm.toLowerCase())
+          )
       },
     },
     methods: {
       handleSearch(term) {
         this.searchTerm = term
       },
+      async fetchCountriesData() {
+        try {
+          const response = await axios.get("https://covid-api.com/api/reports")
+          this.countries = response.data.data
+        } catch (error) {
+          console.error("Error fetching data from API:", error)
+        }
+      },
+    },
+    mounted() {
+      this.fetchCountriesData()
     },
   }
 </script>
 
 <style scoped>
-  /* Estilo para todo o app */
   .app-container {
     background-color: #fff;
     font-family: "Arial", sans-serif;
   }
 
-  /* Estilo do header */
   .header {
     display: flex;
     justify-content: space-between;
@@ -129,7 +117,6 @@
     color: #f76565;
   }
 
-  /* Estilo para a seção de introdução */
   .intro-section {
     display: flex;
     justify-content: center;
@@ -162,7 +149,6 @@
     text-align: center;
   }
 
-  /* Ajuste responsivo para telas menores */
   @media (max-width: 768px) {
     .intro-section {
       flex-direction: column;
@@ -203,7 +189,6 @@
     margin-bottom: 10px;
   }
 
-  /* Estilo da listagem de países */
   .countries-list {
     padding: 40px;
     display: flex;
