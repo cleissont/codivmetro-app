@@ -3,7 +3,6 @@
     <header class="header">
       <div class="logo-container">
         <img src="../src/assets/logo.png" alt="Covidômetro" class="logo" />
-        <h1>Covidômetro</h1>
       </div>
     </header>
 
