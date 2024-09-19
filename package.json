@@ -19,9 +19,7 @@
     "@vue/test-utils": "^2.4.0-alpha.2",
     "@vue/vue3-jest": "^27.0.0",
     "jest": "^27.5.1",
-    "jest-coverage-badges": "^1.1.2",
     "nyc": "^17.0.0",
-    "vite": "^5.4.1",
-    "vue-jest": "^5.0.0-alpha.10"
+    "vite": "^5.4.1"
   }
 }
