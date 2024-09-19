@@ -12,7 +12,7 @@
       </div>
       <div>
         <p>Fatalidade</p>
-        <p class="value">{{ fatalityRate }}%</p>
+        <p class="value">{{ fatalityRate.toFixed(2) }}%</p>
       </div>
     </div>
   </div>
